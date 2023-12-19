@@ -1,44 +1,55 @@
 public class Car {
-    private String name;
-    private  int year;
-    private  String model;
+    private  int carID;
+    private int carYear;
+    private String carName;
+    private String carModel;
 
-    public Car(String name, int year, String model) {
-        this.name = name;
-        this.year = year;
-        this.model = model;
+    public Car(int carID, int carYear, String carName, String carModel) {
+        this.carID = carID;
+        this.carYear = carYear;
+        this.carName = carName;
+        this.carModel = carModel;
     }
 
-    public String getName() {
-        return name;
+    public int getCarID() {
+        return carID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCarID(int carID) {
+        this.carID = carID;
     }
 
-    public int getYear() {
-        return year;
+    public int getCarYear() {
+        return carYear;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setCarYear(int carYear) {
+        this.carYear = carYear;
     }
 
-    public String getModel() {
-        return model;
+    public String getCarName() {
+        return carName;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setCarName(String carName) {
+        this.carName = carName;
+    }
+
+    public String getCarModel() {
+        return carModel;
+    }
+
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
     }
 
     @Override
     public String toString() {
         return "Car{" +
-                "name='" + name + '\'' +
-                ", year=" + year +
-                ", model='" + model + '\'' +
+                "carID=" + carID +
+                ", carYear=" + carYear +
+                ", carName='" + carName + '\'' +
+                ", carModel='" + carModel + '\'' +
                 '}';
     }
 }
