@@ -11,6 +11,9 @@ public class Car {
         this.carModel = carModel;
     }
 
+    public Car(int id, String model, int year) {
+    }
+
     public int getCarID() {
         return carID;
     }
