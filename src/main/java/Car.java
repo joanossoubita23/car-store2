@@ -14,6 +14,9 @@ public class Car {
     public Car(int id, String model, int year) {
     }
 
+    public Car(String name, String model, int year) {
+    }
+
     public int getCarID() {
         return carID;
     }

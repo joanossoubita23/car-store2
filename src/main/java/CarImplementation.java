@@ -1,3 +1,4 @@
+import java.nio.charset.IllegalCharsetNameException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,7 @@ public class CarImplementation implements CarDao {
 
     @Override
     public void addCar(Car car) {
-        try(PreparedStatement statement=connection.prepareStatement("INSERT INTO Carstore2 (name,year,model) VALUES(?,?,?")) {
+        try(PreparedStatement statement=connection.prepareStatement("INSERT INTO Cars (name,model,Year) VALUES(?,?,?)")) {
             statement.setString(1, car.getCarName());
             statement.setString(2, car.getCarModel());
             statement.setInt(3,car.getCarYear());
@@ -28,25 +29,42 @@ public class CarImplementation implements CarDao {
 
     @Override
     public void updateCAr(Car car) {
+        try (PreparedStatement statement=connection.prepareStatement("UPDATE Car name=?,model=?,year=?")){
+            statement.setString(1,car.getCarName());
+            statement.setString(2, car.getCarModel());
+            statement.setInt(3,car.getCarYear());
+            statement.setInt(4,car.getCarID());
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
     @Override
-    public void deleteCar(int CarID) {
+    public void deleteCar(String Carname) {
+        try (PreparedStatement statement=connection.prepareStatement("DELETE FROM Car WHERE Carname=?")){
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
 
     }
 
+
     @Override
-    public Car getCarByID(int CarID) {
+    public Car getCarByname(String Carname) {
         Car car=null;
-        try (PreparedStatement statement= connection.prepareStatement("SELECT * FROM Carstore2 WHERE carID =?")){
-            statement.setInt(1,CarID);
+        try (PreparedStatement statement= connection.prepareStatement("SELECT * FROM Cars WHERE carname =?")){
+            statement.setString(1, "carname");
             try (ResultSet rs =statement.executeQuery()){
                 while (rs.next()){
-                    int id =rs.getInt("CarID");
+                    String carname =rs.getString("Carname");
                     String Model= rs.getString("model");
                     int Year=rs.getInt("Year");
-                    car=new Car(id,Model,Year);
+                    car=new Car(carname,Model,Year);
                 }
 
             }
@@ -57,18 +75,24 @@ public class CarImplementation implements CarDao {
         return car;
     }
 
+
+
+
+
+
     @Override
     public List<Car> getAllCars() {
         List<Car> cars=new ArrayList<>();
-        try (PreparedStatement statement=connection.prepareStatement("SELECT * FROM Carstore2")){
+        try (PreparedStatement statement=connection.prepareStatement("SELECT * FROM Cars")){
 
 
             try (ResultSet rs =statement.executeQuery()){
                 while (rs.next()) {
-                    int id = rs.getInt("CarID");
+                    String carname = rs.getString("Carname");
                     String Model = rs.getString("model");
                     int Year = rs.getInt("Year");
-                    Car car = new Car(id, Model, Year);
+                    Car car = new Car(carname, Model, Year);
+                    cars.add(car);
 
                 }
     }
